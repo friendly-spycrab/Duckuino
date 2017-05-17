@@ -1,9 +1,10 @@
 # Duckuino
-Simple DuckyScript to Arduino converter.
+Simple DuckyScript to DigiStump Arduino converter.
+
+  
+forked from [Nurrl's Duckuino](https://github.com/Nurrl/Duckuino).
 
 If you need to perform mouse emulation then use [d4n5h's Duckuino](https://github.com/d4n5h/Duckuino).
-
-*NOTE: If you are on linux, you might use the Arduino IDE from the website, not from apt, because the apt repo is not up to date.*
 
 # Live version:
 https://nurrl.github.io/Duckuino/
@@ -32,46 +33,40 @@ Output:
  * Generated with <3 by Dckuino.js, an open source project !
  */
 
-#include <Keyboard.h>
+#include "DigiKeyboard.h"
 
 void typeKey(int key)
 {
-  Keyboard.press(key);
-  delay(50);
-  Keyboard.release(key);
+    DigiKeyboard.sendKeyStroke(key);
 }
 
 // Init function
 void setup()
 {
-  // Begining the stream
-  Keyboard.begin();
+  DigiKeyboard.sendKeyStroke(0);
 
-  // Waiting 500ms for init
-  delay(500);
-
-  Keyboard.press(KEY_LEFT_CTRL);
-  Keyboard.press(KEY_LEFT_ALT);
-  Keyboard.press(116);
-  Keyboard.releaseAll();
-
-  delay(1000);
-
-  Keyboard.print("gedit");
-
-  typeKey(KEY_RETURN);
-
-  delay(1000);
-
-  Keyboard.print("Hello World !");
-  // Ending stream
-  Keyboard.end();
+  
+  DigiKeyboard.sendKeyStroke(KEY_D,MOD_GUI_LEFT);
+  DigiKeyboard.delay(50);
+  DigiKeyboard.sendKeyStroke(KEY_F4,MOD_ALT_LEFT);
+  DigiKeyboard.delay(200);
+  for(int i = 0; i<10;i++)
+  {
+    DigiKeyboard.sendKeyStroke(82);
+  }
+  
+  DigiKeyboard.delay(10);
+  
+  for(int i = 0; i<3;i++)
+  {
+    DigiKeyboard.sendKeyStroke(81);
+  }   
+  DigiKeyboard.delay(10);
+  DigiKeyboard.sendKeyStroke(KEY_ENTER);
 }
 
 // Unused
 void loop() {}
 ```
-# Members
-  - [Plazmaz](https://github.com/Plazmaz)
-  - [Nurrl](https://github.com/Nurrl)
+
 
