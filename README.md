@@ -7,10 +7,10 @@ forked from [Nurrl's Duckuino](https://github.com/Nurrl/Duckuino).
 If you need to perform mouse emulation then use [d4n5h's Duckuino](https://github.com/d4n5h/Duckuino).
 
 # Live version:
-https://nurrl.github.io/Duckuino/
+https://friendly-spycrab.github.io/Duckuino/
 
 # Why Duckuino ?
-You can compile duckyscript to arduino code directly through the [live](https://nurrl.github.io/Duckuino/ "Duckuino Live") version, or reuse <code>Dckuino.js</code> for standalone use :
+You can compile duckyscript to arduino code directly through the [live](https://friendly-spycrab.github.io/Duckuino/ "Duckuino Live") version, or reuse <code>Dckuino.js</code> for standalone use :
 ```javascript
 // Create the instance
 Duck = new Dckuinojs();
