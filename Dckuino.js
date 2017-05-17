@@ -110,20 +110,13 @@ class Dckuinojs {
     + '#include "Keyboard.h"\n\n'
     + 'void typeKey(uint8_t key)\n'
     + '{\n'
-    + '  Keyboard.press(key);\n'
-    + '  delay(50);\n'
-    + '  Keyboard.release(key);\n'
+    + '  DigiKeyboard.sendKeyPress(key);\n'
     + '}\n\n'
     + '/* Init function */\n'
     + 'void setup()\n'
     + '{\n'
-    + '  // Begining the Keyboard stream\n'
-    + '  Keyboard.begin();\n\n'
-    + '  // Wait 500ms\n'
-    + '  delay(500);\n'
+    + '  DigiKeyboard.sendKeyStroke(0);\n'
     + '\n' + parsedDucky
-    + '  // Ending stream\n'
-    + '  Keyboard.end();\n'
     + '}\n\n'
     + '/* Unused endless loop */\n'
     + 'void loop() {}';
@@ -206,7 +199,7 @@ class Dckuinojs {
           textString = textString.split('\\').join('\\\\').split('"').join('\\"');
           if (textString !== '')
           {
-            parsedOut = '  Keyboard.print("' + textString + '");\n';
+            parsedOut = '  DigiKeyboard.print("' + textString + '");\n';
             commandKnown = true;
           } else {
             console.error('Error: at line: ' + (i + 1) + ', STRING needs a text');
@@ -223,7 +216,7 @@ class Dckuinojs {
 
           if (! isNaN(wordArray[0]))
           {
-            parsedOut = '  delay(' + wordArray[0] + ');\n';
+            parsedOut = '  DigiKeyboard.delay(' + wordArray[0] + ');\n';
             commandKnown = true; noDelay = true; nextNoDelay = true;
           } else {
             console.error('Error: at line: ' + (i + 1) + ', DELAY only acceptes numbers');
@@ -345,17 +338,17 @@ class Dckuinojs {
               commandKnown = true;
               releaseAll = true;
 
-              parsedOut += '  Keyboard.press(' + comboMap[wordArray[0]] + ');\n';
+              parsedOut += '  DigiKeyboard.sendKeyPress(' + comboMap[wordArray[0]] + ');\n';
             }else if (commandMap[wordArray[0]] !== undefined) {
               commandKnown = true;
               releaseAll = true;
 
-              parsedOut += '  Keyboard.press(' + commandMap[wordArray[0]] + ');\n';
+              parsedOut += '  DigiKeyboard.sendKeyPress(' + commandMap[wordArray[0]] + ');\n';
             }else if (keyMap[wordArray[0]] !== undefined) {
               commandKnown = true;
               releaseAll = true;
 
-              parsedOut += '  Keyboard.press(\'' + keyMap[wordArray[0]] + '\');\n';
+              parsedOut += '  DigiKeyboard.sendKeyPress(\'' + keyMap[wordArray[0]] + '\');\n';
             }else {
               commandKnown = false;
               break;
@@ -372,11 +365,11 @@ class Dckuinojs {
 
       // If we need to release keys, we do
       if (releaseAll)
-        parsedOut += '  Keyboard.releaseAll();\n';
+        parsedOut += '  DigiKeyboard.sendKeyPress(0);\n';
 
       // If there is a default delay add it
       if (defaultDelay > 0 && !noDelay)
-        parsedOut = '  delay(' + defaultDelay + ');\n\n' + parsedOut;
+        parsedOut = '  DigiKeyboard.delay(' + defaultDelay + ');\n\n' + parsedOut;
 
       parsedScript += parsedOut; // Add what we parsed
 
